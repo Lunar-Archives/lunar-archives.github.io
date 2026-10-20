@@ -4,80 +4,92 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lunar Archives</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Audiowide',
-            sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            background-color: #C6CCB2; /* Use ash-gray for background */
-            margin: 0;
+            background-color: #0d0f12;
+            color: #c5c8c6;
+            font-family: monospace;
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            line-height: 1.6;
         }
-
-        .container {
-            text-align: center;
+        header h1 {
+            font-size: 1.4rem;
+            letter-spacing: 0.2rem;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
         }
-
-        .logo {
-            /* Placeholder for logo styling */
-            margin-bottom: 20px;
+        header p {
+            color: #707880;
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
         }
-
-        h1 {
-            font-size: 3em;
-            color: #1F271B; /* Use black-olive for the title */
-            margin-bottom: 10px;
+        .catalog-section h2 {
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1rem;
+            border-bottom: 1px solid #282a2e;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            color: #81a2be;
         }
-
-        p {
-            font-size: 1.2em;
-            color: var(--slate-gray); /* Use slate-gray for the text */
-            margin-bottom: 30px;
+        .release {
+            margin-bottom: 2rem;
         }
-
-        .button {
-            display: inline-block;
-            padding: 15px 30px;
-            font-size: 1.1em;
-            background-color: #672A4E; /* Use violet-jtc for the button */
-            color: white;
+        .release-meta {
+            font-size: 0.8rem;
+            color: #707880;
+        }
+        .release-title {
+            font-size: 1.1rem;
+            color: #f0f0f0;
+            margin: 0.2rem 0;
+        }
+        a {
+            color: #81a2be;
             text-decoration: none;
-            border-radius: 5px;
         }
-        .audiowide-regular {
-  font-family: "Audiowide", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            color: #525558;
+            border-top: 1px solid #282a2e;
+            padding-top: 1rem;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <img src="images/banner-01.png" alt="Lunar Archives Logo"> 
-        </div>
-        <h1>Lunar Archives</h1>
-        <p>Coming Soon</p>
-        <div id="mc_embed_signup">
-            <form action="YOUR_MAILCHIMP_FORM_ACTION" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
-                <div id="mc_embed_signup_scroll">   
 
-                    <label for="mce-EMAIL">Subscribe to our mailing list</label>
-                    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>   
+    <header>
+        <h1>LUNAR ARCHIVES</h1>
+        <p>Independent Sound Design & Audio Catalog</p>
+    </header>
 
-                    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_YOUR_MAILCHIMP_USER_ID"   
- tabindex="-1" value=""></div>
-                    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
-                </div>
-            </form>
-        </div> 
-    </div>
+    <main>
+        <section class="catalog-section">
+            <h2>Releases</h2>
+            
+            <div class="release">
+                <div class="release-meta">LAA0001</div>
+                <div class="release-title">Sample Pack / Soundscapes</div>
+                <p><a href="#" target="_blank">[ Bandcamp / Listen ]</a></p>
+            </div>
+
+            <div class="release">
+                <div class="release-meta">LAA0002</div>
+                <div class="release-title">Generative Ambient Works</div>
+                <p><a href="#" target="_blank">[ Bandcamp / Listen ]</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <script>document.write(new Date().getFullYear());</script> Lunar Archives. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>

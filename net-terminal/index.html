@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SYSTEM LOG
+    <style>
+        body {
+            background-color: #000000;
+            color: #00ff66;
+            font-family: "Courier New", Courier, monospace;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            line-height: 1.5;
+            text-shadow: 0 0 5px rgba(0, 255, 102, 0.4);
+        }
+        header {
+            border-bottom: 1px dashed #00ff66;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h1 {
+            font-size: 1.1rem;
+            letter-spacing: 0.15rem;
+            margin: 0;
+        }
+        .warning {
+            color: #ff3333;
+            text-shadow: 0 0 5px rgba(255, 51, 51, 0.4);
+            margin-bottom: 2rem;
+        }
+        .log-entry {
+            margin-bottom: 1.5rem;
+            border-left: 2px solid #00ff66;
+            padding-left: 1rem;
+        }
+        .timestamp {
+            color: #707880;
+            font-size: 0.85rem;
+        }
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 15px;
+            background-color: #00ff66;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 5px;
+        }
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            50.1%, 100% { opacity: 0; }
+        }
+        a {
+            color: #00ff66;
+            background-color: #001a0a;
+            text-decoration: none;
+            padding: 2px 5px;
+            border: 1px solid #00ff66;
+        }
+        a:hover {
+            background-color: #00ff66;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ARCHIVE_NODE 
+        <div class="timestamp">CONNECTION PROTOCOL: ESTABLISHED</div>
+    </header>
+
+    <div class="warning">
+        [WARNING]: UNAUTHORIZED ACCESS ATTEMPTS ARE LOGGED AND TRACED.
+    </div>
+
+    <main>
+        <div class="log-entry">
+            <div class="timestamp">[LOG_ID: 1994-11-04_B]</div>
+            <p>Subject exhibited unusual behavioral shifts following prolonged exposure to the low-frequency loop recorded at coordinates 41.3850° N, 2.1734° E. Audio anomalies detected in channel 4.</p>
+        </div>
+
+        <div class="log-even">
+            <p>> <a href="fragment-02.html">ACCESS RAW TRANSCRIPT FILE</a></p>
+        </div>
+    </main>
+
+    <footer>
+        <p style="margin-top: 4rem; font-size: 0.8rem; color: #707880;">
+            SYSTEM STATUS: RUNNING<span class="cursor"></span>
+        </p>
+    </footer>
+
+</body>
+</html>

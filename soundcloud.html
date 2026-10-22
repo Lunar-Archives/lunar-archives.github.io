@@ -34,37 +34,31 @@
     <div id="soundcloud-container">Loading latest tracks...</div>
 
     <script>
-        // Paste your generated SoundCloud RSS feed URL here (e.g., from FetchRSS)
-        const scRssUrl = 'https://fetchrss.com/feed/1xJhF0E6N0fK1xJhEd5ynC1q.rss';
-        const scApi = `https://api.allorigins.win/get?url=${encodeURIComponent(scRssUrl)}`;
+    const scRssUrl = 'https://fetchrss.com/feed/1xJhF0E6N0fK1xJhEd5ynC1q.rss';
+    const scApiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(scRssUrl)}`;
 
-        fetch(scApi)
-            .then(response => response.json())
-            .then(data => {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(data.contents, "text/xml");
-                const items = xml.querySelectorAll("item");
+    fetch(scApiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
                 let output = '';
-
-                items.forEach((item, index) => {
-                    if(index < 5) {
-                        const title = item.querySelector("title").textContent;
-                        const link = item.querySelector("link").textContent;
-                        
-                        output += `
-                            <div class="track-item">
-                                <a class="track-title" href="${link}" target="_blank">${title}</a>
-                                <p><a href="${link}" target="_blank">[ Listen on SoundCloud ]</a></p>
-                            </div>
-                        `;
-                    }
+                data.items.slice(0, 5).forEach(item => {
+                    output += `
+                        <div class="track-item">
+                            <a class="track-title" href="${item.link}" target="_blank">${item.title}</a>
+                            <p><a href="${item.link}" target="_blank">[ Listen on SoundCloud ]</a></p>
+                        </div>
+                    `;
                 });
                 document.getElementById("soundcloud-container").innerHTML = output;
-            })
-            .catch(err => {
-                document.getElementById("soundcloud-container").innerHTML = "Unable to load SoundCloud feed at this time.";
-            });
-    </script>
+            } else {
+                document.getElementById("soundcloud-container").innerHTML = "Unable to parse feed data.";
+            }
+        })
+        .catch(err => {
+            document.getElementById("soundcloud-container").innerHTML = "Unable to load SoundCloud feed at this time.";
+        });
+</script>
 
 </body>
 </html>

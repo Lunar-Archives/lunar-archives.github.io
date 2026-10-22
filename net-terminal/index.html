@@ -1,97 +1,197 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYSTEM LOG
-    <style>
-        body {
-            background-color: #000000;
-            color: #00ff66;
-            font-family: "Courier New", Courier, monospace;
-            max-width: 700px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            line-height: 1.5;
-            text-shadow: 0 0 5px rgba(0, 255, 102, 0.4);
-        }
-        header {
-            border-bottom: 1px dashed #00ff66;
-            padding-bottom: 1rem;
-            margin-bottom: 2rem;
-        }
-        h1 {
-            font-size: 1.1rem;
-            letter-spacing: 0.15rem;
-            margin: 0;
-        }
-        .warning {
-            color: #ff3333;
-            text-shadow: 0 0 5px rgba(255, 51, 51, 0.4);
-            margin-bottom: 2rem;
-        }
-        .log-entry {
-            margin-bottom: 1.5rem;
-            border-left: 2px solid #00ff66;
-            padding-left: 1rem;
-        }
-        .timestamp {
-            color: #707880;
-            font-size: 0.85rem;
-        }
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background-color: #00ff66;
-            animation: blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 5px;
-        }
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            50.1%, 100% { opacity: 0; }
-        }
-        a {
-            color: #00ff66;
-            background-color: #001a0a;
-            text-decoration: none;
-            padding: 2px 5px;
-            border: 1px solid #00ff66;
-        }
-        a:hover {
-            background-color: #00ff66;
-            color: #000000;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="generator" content="create-geocities-app">
+  <title>Lunar Archives — Welcome!</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <header>
-        <h1>ARCHIVE_NODE 
-        <div class="timestamp">CONNECTION PROTOCOL: ESTABLISHED</div>
-    </header>
+<!-- Falling effect elements spawned by JS -->
+<!-- Matrix rain canvas -->
+<canvas id="matrix-canvas"></canvas>
+<div id="matrix-hint">[M] toggle matrix</div>
 
-    <div class="warning">
-        [WARNING]: UNAUTHORIZED ACCESS ATTEMPTS ARE LOGGED AND TRACED.
-    </div>
+<!-- Lightbox -->
+<div id="lightbox">
+  <span id="lightbox-close">✕</span>
+  <img id="lightbox-img" src="" alt="">
+  <div id="lightbox-caption"></div>
+</div>
 
-    <main>
-        <div class="log-entry">
-            <div class="timestamp">[LOG_ID: 1994-11-04_B]</div>
-            <p>Subject exhibited unusual behavioral shifts following prolonged exposure to the low-frequency loop recorded at coordinates 41.3850° N, 2.1734° E. Audio anomalies detected in channel 4.</p>
+<div id="page-wrapper">
+<table id="main-table" cellpadding="0" cellspacing="0">
+
+  <!-- ── HEADER ── -->
+  <tr>
+    <td colspan="2" id="header-cell">
+      <div class="marquee-wrapper">
+        <span class="marquee-inner">
+          ★ Welcome to Lunar Archives ★ &nbsp;&nbsp;&nbsp; Est. 2026 &nbsp;&nbsp;&nbsp;
+          ★ Made with ❤️ by nXok ★ &nbsp;&nbsp;&nbsp;
+          This site is best viewed in Netscape Navigator 4.0 at 800×600 &nbsp;&nbsp;&nbsp;
+        </span>
+      </div>
+      <h1 class="rainbow" style="margin:8px 0 4px;">Lunar Archives</h1>
+      <p style="font-size:0.8rem;opacity:0.8;">
+        <span class="blink">★</span>
+        Welcome to my corner of the web!
+        <span class="blink">★</span>
+      </p>
+    </td>
+  </tr>
+
+  <!-- ── CONTENT ROW ── -->
+  <tr id="content-row">
+
+    <!-- ── SIDEBAR ── -->
+    <td id="sidebar">
+
+      <div class="panel">
+        <div class="panel-title">📡 Navigation</div>
+        <a href="index.html" class="nav-link nav-active">🏠 Home</a>
+        <a href="about.html" class="nav-link">👤 About Me</a>
+        <a href="gallery.html" class="nav-link">🖼️ Gallery</a>
+        <a href="guestbook.html" class="nav-link">📖 Guestbook</a>
+        <a href="links.html" class="nav-link">🔗 Cool Links</a>
+      </div>
+
+      <div class="panel" style="text-align:center;">
+        <div class="panel-title">🌐 Site Info</div>
+        <span class="spinning-globe">🌍</span>
+        <div style="font-size:0.7rem;margin-top:4px;">Theme: Neon</div>
+        <span id="page-clock">00:00:00</span>
+      </div>
+
+      <div class="panel" style="text-align:center;">
+        <div class="panel-title">🎵 Music</div>
+        <button id="music-btn" class="retro-btn" style="width:100%;font-size:0.7rem;">🎵 PLAY MUSIC</button>
+      </div>
+
+      <div class="panel" style="text-align:center;font-size:0.75rem;">
+        <div class="panel-title">📊 Visitors</div>
+        <div id="visitor-counter-box">
+          <div class="counter-label">You are visitor #</div>
+          <div class="counter-digits" id="counter-display"></div>
         </div>
+      </div>
 
-        <div class="log-even">
-            <p>> <a href="fragment-02.html">ACCESS RAW TRANSCRIPT FILE</a></p>
+      <div class="webring">
+        <div class="webring-title">⚡ GeoCities Web Ring ⚡</div>
+        <div class="webring-nav">
+          <a href="#" class="webring-btn">◀ Prev</a>
+          <a href="#" class="webring-btn">🏠 Hub</a>
+          <a href="#" class="webring-btn">Next ▶</a>
         </div>
-    </main>
+      </div>
 
-    <footer>
-        <p style="margin-top: 4rem; font-size: 0.8rem; color: #707880;">
-            SYSTEM STATUS: RUNNING<span class="cursor"></span>
+    </td>
+
+    <!-- ── MAIN CONTENT ── -->
+    <td id="main-content">
+
+      <div class="panel">
+        <div class="panel-title">🏠 Welcome to My Homepage! <span class="new-badge">NEW</span></div>
+
+        <p>
+          Hey there, internet traveler! 👋 You've found <strong>Lunar Archives</strong>,
+          the personal homepage of <strong>nXok</strong>.
+          Pull up a chair, grab a Surge, and stay a while!
         </p>
-    </footer>
 
+        <div class="star-divider">✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
+
+        <h2 class="neon-text">🔥 What's New</h2>
+        <ul style="margin-left:16px;font-size:0.85rem;">
+          <li><span class="new-badge">NEW</span> <strong>2026</strong> — Site launched! Welcome!</li>
+          <li>🖼️ Gallery page now live — check it out!</li>
+          <li>📖 Guestbook open — please sign it!</li>
+          <li>🔗 Cool Links page updated with fresh finds.</li>
+        </ul>
+
+        <hr class="retro-divider">
+
+        <h2 class="neon-text">👤 About This Site</h2>
+        <p>
+          This is the personal website of <strong>nXok</strong>.
+          Here you'll find my thoughts, photos, cool links, and more.
+          I built this page all by myself — no frames were harmed in the making!
+        </p>
+        <p>
+          Feel free to look around. Don't forget to
+          <a href="guestbook.html">sign my guestbook</a>!
+        </p>
+      </div>
+
+      <!-- Under Construction -->
+      <div class="under-construction">
+        <div class="uc-inner">
+          <span class="uc-icon">🚧</span>
+          THIS PAGE IS UNDER CONSTRUCTION
+          <span class="uc-icon">🚧</span>
+          <br>
+          <span style="font-size:0.75rem;font-weight:normal;">
+            Check back soon for more awesome content!
+          </span>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">💡 Did You Know?</div>
+        <p style="font-size:0.85rem;">
+          You can press <strong style="color:var(--heading);">[M]</strong> on your keyboard
+          to activate the secret Matrix rain effect! 🕶️
+        </p>
+        <p style="font-size:0.85rem;">
+          This site uses <strong>ZERO external dependencies</strong>.
+          Pure HTML, CSS, and vanilla JavaScript — just like 1996! 🖥️
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">📬 Contact Me</div>
+        <p style="font-size:0.85rem;">
+          Want to reach me? Send me an email!
+          <br><br>
+          <a href="mailto:nXok@example.com" class="retro-btn">
+            📧 Email Me!
+          </a>
+          &nbsp;
+          <a href="guestbook.html" class="retro-btn">📖 Sign Guestbook</a>
+        </p>
+      </div>
+
+    </td>
+  </tr>
+
+  <!-- ── FOOTER ── -->
+  <tr>
+    <td colspan="2" id="footer-cell">
+      <div class="star-divider">✦ ✧ ✦ ✧ ✦ ✧ ✦ ✧ ✦</div>
+      <p style="font-size:0.75rem;margin:4px 0;">
+        © 2026 <strong>nXok</strong> — All Rights Reserved
+        &nbsp;|&nbsp;
+        <a href="index.html">Home</a>
+        &nbsp;|&nbsp;
+        <a href="guestbook.html">Guestbook</a>
+      </p>
+      <p style="font-size:0.7rem;margin:4px 0;">
+        <span class="netscape-badge">Best viewed in Netscape Navigator 4.0<br>at 800×600 resolution</span>
+      </p>
+      <p style="font-size:0.65rem;opacity:0.6;margin-top:6px;">
+        Made with create-geocities-app &nbsp;✨&nbsp; No cookies. No tracking. Just vibes.
+      </p>
+      <p style="font-size:0.65rem;opacity:0.6;margin-top:6px;">
+        <a href="https://bestsugardaddyapps.com/">Best Sugar Daddy Apps</a>
+      </p>
+    </td>
+  </tr>
+
+</table>
+</div>
+
+<script src="js/main.js"></script>
 </body>
 </html>

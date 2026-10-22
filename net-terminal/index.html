@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NET-TERMINAL // 1994.11</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #00ff66;
+            font-family: "Courier New", Courier, monospace;
+            max-width: 750px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            line-height: 1.6;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+        }
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            margin: 0;
+            font-family: inherit;
+        }
+        #terminal-history {
+            margin-bottom: 1rem;
+        }
+        .input-line {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+        }
+        .prompt {
+            margin-right: 8px;
+            color: #00ff66;
+        }
+        input {
+            background: transparent;
+            border: none;
+            color: #00ff66;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 1rem;
+            outline: none;
+            width: 100%;
+            text-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+        }
+        a {
+            color: #00ff66;
+            background-color: #001a0a;
+            text-decoration: none;
+            padding: 2px 6px;
+            border: 1px solid #00ff66;
+        }
+        a:hover {
+            background-color: #00ff66;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="terminal-history"></div>
+
+    <div class="input-line" id="input-container" style="display: none;">
+        <span class="prompt">&gt;</span>
+        <input type="text" id="user-input" autofocus autocomplete="off" spellcheck="false">
+    </div>
+
+    <script>
+        const historyEl = document.getElementById("terminal-history");
+        const inputContainer = document.getElementById("input-container");
+        const userInput = document.getElementById("user-input");
+
+        const bootSequence = [
+            "INITIALIZING LUNAR-NET BIOS v4.2...",
+            "CHECKING MEMORY INTEGRITY... 640K OK.",
+            "ESTABLISHING SECURE HANDSHAKE WITH SECTOR 7...",
+            "CARRIER DETECTED. BAUD RATE: 14400.",
+            "WARNING: UNAUTHORIZED LOGINS WILL BE PURGED.",
+            "Type 'help' for available commands.\n"
+        ];
+
+        let lineIdx = 0;
+        let charIdx = 0;
+
+        function playBoot() {
+            if (lineIdx < bootSequence.length) {
+                if (charIdx === 0) {
+                    const p = document.createElement("pre");
+                    historyEl.appendChild(p);
+                }
+                const currentPre = historyEl.lastChild;
+                currentPre.textContent += bootSequence[lineIdx].charAt(charIdx);
+                charIdx++;
+                
+                if (charIdx < bootSequence[lineIdx].length) {
+                    setTimeout(playBoot, 20);
+                } else {
+                    lineIdx++;
+                    charIdx = 0;
+                    setTimeout(playBoot, 200);
+                }
+            } else {
+                inputContainer.style.display = "flex";
+                userInput.focus();
+            }
+        }
+
+        setTimeout(playBoot, 500);
+
+        userInput.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") {
+                const cmd = userInput.value.trim().toLowerCase();
+                
+                // Echo command back to history
+                const cmdLine = document.createElement("div");
+                cmdLine.textContent = `> ${userInput.value}`;
+                historyEl.appendChild(cmdLine);
+
+                // Process commands
+                const responseLine = document.createElement("div");
+                responseLine.style.margin = "0.5rem 0 1rem 0";
+
+                switch(cmd) {
+                    case "help":
+                        responseLine.innerHTML = "AVAILABLE COMMANDS:<br>&nbsp;&nbsp;<strong>status</strong> - Check sector integrity<br>&nbsp;&nbsp;<strong>logs</strong> - Access raw transcripts<br>&nbsp;&nbsp;<strong>home</strong> - Return to main surface<br>&nbsp;&nbsp;<strong>clear</strong> - Clear screen";
+                        break;
+                    case "status":
+                        responseLine.textContent = "SECTOR 7-G: OPERATIONAL. ANOMALY DETECTED IN AUDIO FREQUENCY 41.3Hz.";
+                        break;
+                    case "logs":
+                        responseLine.innerHTML = "LATEST LOG: Subject exposed to repeating signal. <a href='fragment-01.html'>[OPEN FILE]</a>";
+                        break;
+                    case "home":
+                        responseLine.textContent = "Rerouting to surface...";
+                        setTimeout(() => { window.location.href = "../index.html"; }, 1000);
+                        break;
+                    case "clear":
+                        historyEl.innerHTML = "";
+                        responseLine.textContent = "";
+                        break;
+                    case "":
+                        break;
+                    default:
+                        responseLine.textContent = `Command not recognized: '${cmd}'. Type 'help' for valid commands.`;
+                }
+
+                if(cmd !== "clear") {
+                    historyEl.appendChild(responseLine);
+                }
+
+                userInput.value = "";
+                window.scrollTo(0, document.body.scrollHeight);
+            }
+        });
+
+        // Keep input focused if user clicks anywhere on the page
+        document.addEventListener("click", () => userInput.focus());
+    </script>
+
+</body>
+</html>

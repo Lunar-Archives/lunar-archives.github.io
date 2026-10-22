@@ -35,39 +35,35 @@
     <div id="feed-container">Loading latest uploads...</div>
 
     <script>
-        const CHANNEL_ID = 'UCk9BBi4zc0ZziMo25UEbrhQ'; // e.g., UCxxxxxx
-        const rssUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
-        // Using a free CORS proxy to fetch the XML cleanly on static hosting
-        const api = `https://api.allorigins.win/get?url=${encodeURIComponent(rssUrl)}`;
+    const CHANNEL_ID = 'UCk9BBi4zc0ZziMo25UEbrhQ'; // e.g., UCxxxxxx
+    const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`)}`;
 
-        fetch(api)
-            .then(response => response.json())
-            .then(data => {
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(data.contents, "text/xml");
-                const entries = xml.querySelectorAll("entry");
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
                 let output = '';
+                data.items.slice(0, 5).forEach(item => {
+                    // Extract YouTube video ID from the link URL
+                    const videoIdMatch = item.link.match(/(?:v=|\/embed\/|\/v\/|youtu\.be\/)([^&\n?#]+)/);
+                    const videoId = videoIdMatch ? videoIdMatch[1] : '';
 
-                entries.forEach((entry, index) => {
-                    if(index < 5) { // Show latest 5 videos
-                        const title = entry.querySelector("title").textContent;
-                        const videoId = entry.querySelector("videoId") ? entry.querySelector("videoId").textContent : '';
-                        const link = entry.querySelector("link").getAttribute("href");
-                        
-                        output += `
-                            <div class="video-item">
-                                <a class="video-title" href="${link}" target="_blank">${title}</a>
-                                ${videoId ? `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" allowfullscreen></iframe>` : ''}
-                            </div>
-                        `;
-                    }
+                    output += `
+                        <div class="video-item">
+                            <a class="video-title" href="${item.link}" target="_blank">${item.title}</a>
+                            ${videoId ? `<iframe src="https://www.youtube-nocookie.com/embed/${videoId}" allowfullscreen></iframe>` : ''}
+                        </div>
+                    `;
                 });
                 document.getElementById("feed-container").innerHTML = output;
-            })
-            .catch(err => {
-                document.getElementById("feed-container").innerHTML = "Unable to load feed at this time.";
-            });
-    </script>
+            } else {
+                document.getElementById("feed-container").innerHTML = "Unable to parse feed data.";
+            }
+        })
+        .catch(err => {
+            document.getElementById("feed-container").innerHTML = "Unable to load feed at this time.";
+        });
+</script>
 
 </body>
 </html>

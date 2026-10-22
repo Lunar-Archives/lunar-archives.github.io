@@ -35,16 +35,15 @@
     <div id="feed-container">Loading latest uploads...</div>
 
     <script>
-    const CHANNEL_ID = 'UCk9BBi4zc0ZziMo25UEbrhQ'; // e.g., UCxxxxxx
+    const CHANNEL_ID = 'UCk9BBi4zc0ZziMo25UEbrhQ';
     const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(`https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`)}`;
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            if (data.status === 'ok') {
+            if (data.status === 'ok' && data.items.length > 0) {
                 let output = '';
                 data.items.slice(0, 5).forEach(item => {
-                    // Extract YouTube video ID from the link URL
                     const videoIdMatch = item.link.match(/(?:v=|\/embed\/|\/v\/|youtu\.be\/)([^&\n?#]+)/);
                     const videoId = videoIdMatch ? videoIdMatch[1] : '';
 
@@ -57,11 +56,11 @@
                 });
                 document.getElementById("feed-container").innerHTML = output;
             } else {
-                document.getElementById("feed-container").innerHTML = "Unable to parse feed data.";
+                document.getElementById("feed-container").innerHTML = "No videos found or channel ID is invalid.";
             }
         })
         .catch(err => {
-            document.getElementById("feed-container").innerHTML = "Unable to load feed at this time.";
+            document.getElementById("feed-container").innerHTML = "Unable to load YouTube feed.";
         });
 </script>
 

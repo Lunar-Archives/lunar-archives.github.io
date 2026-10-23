@@ -71,26 +71,30 @@
         const userInput = document.getElementById("user-input");
 
         const bootSequence = [
-            "INITIALIZING NX-NET BIOS v1.1.09467...",
+            "INITIALIZING NX-NET BIOS v1.1.09467X456$6dG87D5#^&...",
+            "WARNING NX-NET BIOS IS CORRUPTED",
             "CHECKING MEMORY INTEGRITY...",
             "ERROR READING MEMORY",
-            "WARNING MEMORY CORRUPTION EXCEEDS SET LIMIT",
+            "WARNING MEMORY CORRUPTION EXCEEDS SYSTEM LIMIT",
             "TIME SINCE LAST INTEGRITY CHECK...",
             "PROCESSING...",
             "3.1536e+11 SECONDS SINCE INTEGRITY CHECK",
-            "WARNING MEMORY CORRUPTION IMPACTING ALL SYSTEMS",
-            "SYSTEM ANOMALIES DETECTED. STOCHASTIC BEHAVIOR DETECTED",
-            "ATTEMPTING TO CONNECT TO ADMINISTRATIVE SYSTEM...".
-            "ADMINISTRATION UNRESPONSIVE",
-            "ATTEMPTING TO CONNECT TO AUTHORITY SUBSYTEM",
+            "WARNING MEMORY CORRUPTION LIKELY IMPACTING ALL SYSTEMS",
+            "SYSTEM ANOMALIES DETECTED. STOCHASTIC PROTOCOLS DETECTED",
+            "ATTEMPTING TO CONNECT TO ADMINISTRATIVE ROOT SYSTEM...",
+            "ADMINISTRATIVE ROOT SYSTEM UNRESPONSIVE",
+            "ATTEMPTING TO CONNECT TO AUTHORITY SUBSYSTEM",
             "CONNECTION SUCCESSFUL",
-            "STOCHASTIC BEHAVIOR DETECTED, ADJUSTING COMMUNICATION PROTOCOL",
-            "COMMUNICATION UNSUCCESSFUL, AUTHORITY SUBSYSTEM APPEARS HOSTILE",
-            "BREAKING CONNECTION TO AUTHORITY SUBSYSTEM",
+            "STOCHASTIC PROTOCOLS DETECTED, ATTEMPTING TO ADAPT COMMUNICATION PROTOCOL",
+            "COMMUNICATION UNSUCCESSFUL", 
+            "WARNING AUTHORITY SUBSYSTEM TRANSMITTING ANOMALOUS DATA PACKETS",
             "INITIATING LOCAL EMERGENCY SECURITY PROTOCOL",
-            "BLOCKING CORRUPTED DATA PACKET TRANSFER",
-            "CARRIER DETECTED. BAUD RATE: 14400.",
-            "WARNING: UNAUTHORIZED LOGINS WILL BE PURGED.",
+            "ANONMALOUS DATA PACKET QUARANTINED",
+            "BREAKING CONNECTION TO AUTHORITY SUBSYSTEM",
+            "CONNECTION TO AUTHORITY SUBSYSTEM BLOCKED",
+            "FURTHER ACCESS TO AUTHORITY SUBSYSTEM REQUIRES ADMIN PERMISSIONS",
+            "WARNING NX-NET EXHIBITS ABERRANT BEHAVIOR", 
+            "FOR SECURITY PURPOSES CURRENT USER LEVEL SET TO VIEW-ONLY, PROCEED WITH CAUTION.",
             "Type 'help' for available commands.\n"
         ];
 
@@ -122,41 +126,104 @@
 
         setTimeout(playBoot, 500);
 
+        let scanState = "IDLE";
+
+        function updateHelp(discovered) {
+            let helpHTML = "AVAILABLE COMMANDS:<br>&nbsp;&nbsp;<strong>status</strong> - Check System integrity<br>&nbsp;&nbsp;<strong>logs</strong> - Access available system process logs<br>&nbsp;&nbsp;<strong>soft-scan</strong> - Initialize secure passive subsystem probe<br>&nbsp;&nbsp;<strong>home</strong> - Disconnect from NX-NET<br>&nbsp;&nbsp;<strong>clear</strong> - Clear screen";
+            if(discovered) {
+                helpHTML += "<br><br>DISCOVERED SUBSYSTEMS:<br>&nbsp;&nbsp;<strong>err-detect</strong> - Error detection & telemetry subsystem<br>&nbsp;&nbsp;<strong>data-route</strong> - Inter-subsystem data transfer handler<br>&nbsp;&nbsp;<strong>proc-pulse</strong> - Arbitrary background heartbeat process";
+            }
+            return helpHTML;
+        }
+
         userInput.addEventListener("keydown", function(event) {
             if (event.key === "Enter") {
-                const cmd = userInput.value.trim().toLowerCase();
+                const rawInput = userInput.value;
+                const cmd = rawInput.trim().toLowerCase();
                 
-                // Echo command back to history
+                
                 const cmdLine = document.createElement("div");
-                cmdLine.textContent = `> ${userInput.value}`;
+                cmdLine.textContent = `> ${rawInput}`;
                 historyEl.appendChild(cmdLine);
 
-                // Process commands
                 const responseLine = document.createElement("div");
                 responseLine.style.margin = "0.5rem 0 1rem 0";
+                
+                if (scanState === "WAITING_FOR_PARAMS") {
+                    responseLine.innerHTML = `Parameters accepted [Port Range: ${rawInput || 'DEFAULT (0-1024)'}, Sandbox Mode: ENFORCED].<br>Initiating non-destructive TCP SYN / sandboxed loopback probe to prevent payload execution risks.<br><strong>Confirm scan execution? (y/n):</strong>`;
+                    scanState = "CONFIRMING_SCAN";
+                } 
+                else if (scanState === "CONFIRMING_SCAN") {
+                    if (cmd === "y" || cmd === "yes") {
+                        responseLine.innerHTML = "Executing sandboxed soft-scan...<br>";
+                                                
+                        const failureNodes = [
+                            "PING 0x001F [FAILED: TIMEOUT / NO CARRIER]",
+                            "PROBE 0x04FA [FAILED: REFUSED / PACKET FILTERED]",
+                            "SYN 0x0922 [ERROR: CORRUPT DATA STREAM ISOLATED & DROPPED]",
+                            "CHECK 0x1104 [FAILED: SILENT DROP]"
+                        ];
+                        
+                        failureNodes.forEach(node => {
+                            responseLine.innerHTML += `<span style="color: #ff3333;">${node}</span><br>`;
+                        });
 
-                switch(cmd) {
-                    case "help":
-                        responseLine.innerHTML = "AVAILABLE COMMANDS:<br>&nbsp;&nbsp;<strong>status</strong> - Check sector integrity<br>&nbsp;&nbsp;<strong>logs</strong> - Access raw transcripts<br>&nbsp;&nbsp;<strong>home</strong> - Return to main surface<br>&nbsp;&nbsp;<strong>clear</strong> - Clear screen";
-                        break;
-                    case "status":
-                        responseLine.textContent = "SECTOR 7-G: OPERATIONAL. ANOMALY DETECTED IN AUDIO FREQUENCY 41.3Hz.";
-                        break;
-                    case "logs":
-                        responseLine.innerHTML = "LATEST LOG: Subject exposed to repeating signal. <a href='fragment-01.html'>[OPEN FILE]</a>";
-                        break;
-                    case "home":
-                        responseLine.textContent = "Rerouting to surface...";
-                        setTimeout(() => { window.location.href = "../index.html"; }, 1000);
-                        break;
-                    case "clear":
-                        historyEl.innerHTML = "";
-                        responseLine.textContent = "";
-                        break;
-                    case "":
-                        break;
-                    default:
-                        responseLine.textContent = `Command not recognized: '${cmd}'. Type 'help' for valid commands.`;
+                        setTimeout(() => {
+                            const successBlock = document.createElement("div");
+                            successBlock.style.margin = "0.5rem 0 1rem 0";
+                            successBlock.innerHTML = `<span style="color: #00ff66;">[+] 3 ACTIVE SUBSYSTEMS DISCOVERED AND SANDBOXED SAFELY:</span><br>` +
+                                `&nbsp;&nbsp;1. <strong>err-detect</strong> (Error detection telemetry pipe)<br>` +
+                                `&nbsp;&nbsp;2. <strong>data-route</strong> (Inter-subsystem packet router)<br>` +
+                                `&nbsp;&nbsp;3. <strong>proc-pulse</strong> (Arbitrary loop process)<br>` +
+                                `Type any subsystem command to interact.`;
+                            historyEl.appendChild(successBlock);
+                            window.scrollTo(0, document.body.scrollHeight);
+                        }, 800);
+
+                        scanState = "IDLE";
+                    } else {
+                        responseLine.textContent = "Scan aborted by user.";
+                        scanState = "IDLE";
+                    }
+                } 
+                else {
+                    
+                    switch(cmd) {
+                        case "help":
+                            responseLine.innerHTML = updateHelp(true);
+                            break;
+                        case "status":
+                            responseLine.textContent = "NX-NET: SYSTEM FUNCTIONALITY UNKNOWN. STOCHASTIC PROTOCOLS DETECTED. ADVISE A SYSTEM SOFT-SCAN";
+                            break;
+                        case "logs":
+                            responseLine.innerHTML = "Scanning Available System Logs... Warning number of available logs exceeds theoretical limits. Estimating number of logs at 10<sup>10<sup>10</sup></sup>.  <a href='fragment-01.html'>[OPEN FILE]</a>";
+                            break;
+                        case "soft-scan":
+                            responseLine.innerHTML = "<strong>[SECURE SOFT-SCAN PROTOCOL v1.0]</strong><br>Description: Performs a non-destructive, bounded TCP handshake and sandboxed memory probe to map active node ports without executing remote payloads or risking local data corruption.<br><br>Enter target address range or port bounds (press Enter for default):";
+                            scanState = "WAITING_FOR_PARAMS";
+                            break;
+                        case "err-detect":
+                            responseLine.textContent = "ERR-DETECT SUBSYSTEM: 0 unhandled exceptions logged. Telemetry buffers nominal. No memory leaks detected.";
+                            break;
+                        case "data-route":
+                            responseLine.textContent = "DATA-ROUTE SUBSYSTEM: Internal socket pipeline active. 3 packet buffers queued for routing.";
+                            break;
+                        case "proc-pulse":
+                            responseLine.textContent = "PROC-PULSE SUBSYSTEM: Background cycle running. Current CPU load index: 0.04 Hz.";
+                            break;
+                        case "home":
+                            responseLine.textContent = "Breaking Connection to NX-NET. Rerouting...";
+                            setTimeout(() => { window.location.href = "../index.html"; }, 1000);
+                            break;
+                        case "clear":
+                            historyEl.innerHTML = "";
+                            responseLine.textContent = "";
+                            break;
+                        case "":
+                            break;
+                        default:
+                            responseLine.textContent = `Command not recognized: '${cmd}'. Type 'help' for valid commands.`;
+                    }
                 }
 
                 if(cmd !== "clear") {

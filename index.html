@@ -5,78 +5,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
     <title>Lunar Archives</title>
     <style>
+        /* --- Base Reset & Layout --- */
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             background-color: #1B1725;
             color: #EFD09E;
-            font-family: "Syncopate", sans-serif;
-            font-weight: 400;
+            font-family: "Space Mono", monospace;
+            font-size: 0.9rem;
             max-width: 650px;
             margin: 0 auto;
             padding: 4rem 2rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
-        header h1 {
-            font-size: 1.4rem;
-            font-family: "Syncopate", sans-serif;
-            font-weight: 700;
-            letter-spacing: 0.2rem;
-            color: #2EC4B6;
-            margin-bottom: 0.5rem;
+
+        /* --- Navigation --- */
+        nav {
+            margin-bottom: 3rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.05rem;
         }
-        header p {
-            color: #61E294;
-            font-size: 0.9rem;
+
+        nav a {
+            margin-right: 1.5rem;
+        }
+
+        /* --- Header --- */
+        header {
             margin-bottom: 3rem;
         }
-        .syncopate-regular {
-            font-family: "Syncopate", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-        }
 
-        .syncopate-bold {
+        header h1 {
             font-family: "Syncopate", sans-serif;
+            font-size: 1.4rem;
             font-weight: 700;
-            font-style: normal;
+            letter-spacing: 0.25rem;
+            color: #2EC4B6;
+            margin-bottom: 0.75rem;
         }
 
+        header p {
+            color: #61E294;
+            font-size: 0.8rem;
+            letter-spacing: 0.05rem;
+            margin: 0;
+        }
+
+        /* --- Main Content & Catalog --- */
         .catalog-section h2 {
-            font-size: 1rem;
+            font-family: "Syncopate", sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.1rem;
+            letter-spacing: 0.15rem;
             border-bottom: 1px solid #282a2e;
-            padding-bottom: 0.5rem;
+            padding-bottom: 0.75rem;
             margin-bottom: 1.5rem;
             color: #2EC4B6;
         }
+
+        .catalog-section p {
+            color: #EFD09E;
+        }
+
         .release {
             margin-bottom: 2rem;
         }
+
         .release-meta {
-            font-size: 0.8rem;
-            color: #2EC4B6;
+            font-size: 0.75rem;
+            color: #61E294;
         }
+
         .release-title {
-            font-size: 1.1rem;
+            font-family: "Syncopate", sans-serif;
+            font-size: 1rem;
             color: #2EC4B6;
             margin: 0.2rem 0;
         }
+
+        /* --- Global Links --- */
         a {
             color: #EB5E28;
             text-decoration: none;
+            transition: opacity 0.2s ease;
         }
+
         a:hover {
             text-decoration: underline;
+            opacity: 0.85;
         }
+
+        /* --- Footer --- */
         footer {
-            margin-top: 4rem;
-            font-size: 0.8rem;
-            color: #2EC4B6;
+            margin-top: 5rem;
+            font-size: 0.75rem;
+            color: #61E294;
             border-top: 1px solid #282a2e;
-            padding-top: 1rem;
+            padding-top: 1.5rem;
+            letter-spacing: 0.05rem;
         }
     </style>
 </head>
@@ -96,8 +128,7 @@
     <main>
         <section class="catalog-section">
             <h2>More to Come!</h2>
-                <p>More info to come! Site is currently under construction.</p>
-            </div>
+            <p>More info to come! Site is currently under construction.</p>
         </section>
     </main>
 

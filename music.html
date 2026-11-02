@@ -3,22 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lunar Archives - Music</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
+    <title>Lunar Archives</title>
     <style>
+        
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            background-color: #0d0f12;
-            color: #c5c8c6;
-            font-family: monospace;
+            background-color: #1B1725;
+            color: #EFD09E;
+            font-family: "Space Mono", monospace;
+            font-size: 0.9rem;
             max-width: 650px;
             margin: 0 auto;
             padding: 4rem 2rem;
-            line-height: 1.6;
+            line-height: 1.7;
         }
-        nav a { color: #81a2be; margin-right: 1.5rem; text-decoration: none; }
-        nav a:hover { text-decoration: underline; }
-        h1 { font-size: 1.4rem; color: #ffffff; letter-spacing: 0.2rem; margin-bottom: 2rem; }
-        .track-item { margin-bottom: 2rem; border-bottom: 1px solid #282a2e; padding-bottom: 1.5rem; }
-        iframe { width: 100%; height: 166px; border: none; background: #161b22; }
+
+       
+        nav {
+            margin-bottom: 3rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.05rem;
+        }
+
+        nav a {
+            margin-right: 1.5rem;
+        }
+
+        
+        header {
+            margin-bottom: 3rem;
+        }
+
+        header h1 {
+            font-family: "Syncopate", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            letter-spacing: 0.25rem;
+            color: #2EC4B6;
+            margin-bottom: 0.75rem;
+        }
+
+        header p {
+            color: #61E294;
+            font-size: 0.8rem;
+            letter-spacing: 0.05rem;
+            margin: 0;
+        }
+
+        
+        .catalog-section h2 {
+            font-family: "Syncopate", sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.15rem;
+            border-bottom: 1px solid #282a2e;
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.5rem;
+            color: #2EC4B6;
+        }
+
+        .catalog-section p {
+            color: #EFD09E;
+        }
+
+        .release {
+            margin-bottom: 2rem;
+        }
+
+        .release-meta {
+            font-size: 0.75rem;
+            color: #61E294;
+        }
+
+        .release-title {
+            font-family: "Syncopate", sans-serif;
+            font-size: 1rem;
+            color: #2EC4B6;
+            margin: 0.2rem 0;
+        }
+
+        
+        a {
+            color: #EB5E28;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            opacity: 0.85;
+        }
+
+        
+        footer {
+            margin-top: 5rem;
+            font-size: 0.75rem;
+            color: #61E294;
+            border-top: 1px solid #282a2e;
+            padding-top: 1.5rem;
+            letter-spacing: 0.05rem;
+        }
     </style>
 </head>
 <body>

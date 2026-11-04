@@ -170,7 +170,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     font-size: 0.75rem;
-    color: #2EC4B6; 
+    color: #2EC4B6;
     letter-spacing: 0.05rem;
 }
 
@@ -185,7 +185,8 @@ footer {
     padding: 2rem;
 }
 
-.blog-content h2, .blog-content h3 {
+.blog-content h2, 
+.blog-content h3 {
     font-family: "Syncopate", sans-serif;
     color: #61E294 !important;
     margin-top: 0;

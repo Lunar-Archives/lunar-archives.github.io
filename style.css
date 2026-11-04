@@ -185,9 +185,9 @@ footer {
     padding: 2rem;
 }
 
-.blog-content h2, 
-.blog-content h3 {
-    font-family: "Syncopate", sans-serif;
+.blog-post .blog-content h2, 
+.blog-post .blog-content h3 {
+    font-family: "Syncopate", sans-serif !important; 
     color: #61E294 !important;
     margin-top: 0;
     margin-bottom: 1rem;

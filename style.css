@@ -68,7 +68,7 @@ footer {
     letter-spacing: 0.05rem;
 }
 
-/* Page Specific Layouts */
+/* Page Layouts */
 .video-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -142,11 +142,6 @@ footer {
     letter-spacing: 0.05rem;
 }
 
-@media (max-width: 700px) {
-    .video-grid {
-        grid-template-columns: 1fr;
-    }
-
 /* Blog Container */
 .blog-post {
     background: #14111d;
@@ -211,4 +206,9 @@ footer {
 .blog-content p:last-child {
     margin-bottom: 0;
 }
+
+@media (max-width: 700px) {
+    .video-grid {
+        grid-template-columns: 1fr;
+    }
 }

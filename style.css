@@ -147,7 +147,7 @@ footer {
         grid-template-columns: 1fr;
     }
 
-/* --- Blog & Article Container Style --- */
+/* Blog Container */
 .blog-post {
     background: #14111d;
     border: 1px solid #282a2e;
